@@ -53,6 +53,9 @@
       <a href="articles/HOWTO_BUILD_WORKSHOP.html">How To Build A Workshop Package</a>
     </li>
     <li>
+      <a href="articles/msqrob2_workshop.html">msqrob2PTM: msqrob2 Mass Spectrometry Data Analysis Workflow for differential PTM analysis</a>
+    </li>
+    <li>
       <a href="articles/workshop_example.html">An Example Workshop</a>
     </li>
   </ul>
@@ -77,61 +80,145 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
 <div class="section level1">
-<div class="page-header"><h1 id="buildabiocworkshop">BuildABiocWorkshop<a class="anchor" aria-label="anchor" href="#buildabiocworkshop"></a>
+<div class="page-header"><h1 id="msqrob2ptm-prioritizing-differentially-abundant-and-differentially-used-post-translational-modifications-in-mass-spectrometry-based-proteomics">msqrob2PTM: prioritizing differentially abundant and differentially used post translational modifications in mass spectrometry-based proteomics<a class="anchor" aria-label="anchor" href="#msqrob2ptm-prioritizing-differentially-abundant-and-differentially-used-post-translational-modifications-in-mass-spectrometry-based-proteomics"></a>
 </h1></div>
-<p>This package is a template for building a Bioconductor workshop. The package includes Github actions to:</p>
-<ol style="list-style-type: decimal">
-<li>Set up bioconductor/bioconductor_docker:devel on Github resources</li>
-<li>Install package dependencies for your package (based on the <code>DESCRIPTION</code> file)</li>
-<li>Run <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck</a></code>
-</li>
-<li>Build a pkgdown website and push it to github pages</li>
-<li>Build a docker image with the installed package and dependencies and deploy to <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pulling-container-images" class="external-link">the Github Container Repository</a> at the name <code>ghcr.io/gihub_user/repo_name</code>, all lowercase.</li>
-</ol>
+<p>Authors: Lieven Clement<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Nina Demeulemeester<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Luca De Corso<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, Lucas Beerland<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> <br> Last modified: May 20, 2026.</p>
 <div class="section level2">
-<h2 id="responsibilities">Responsibilities<a class="anchor" aria-label="anchor" href="#responsibilities"></a>
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Package authors are primarily responsible for:</p>
-<ol style="list-style-type: decimal">
-<li>Creating a landing site of their choosing for their workshops (a website). This website should be listed in the <code>DESCRIPTION</code> file as the <code>URL</code>.</li>
-<li>Creating a docker image that will contain workshop materials and the installed packages necessary to run those materials. The name of the resulting docker image, including “tag” if desired, should be listed in a non-standard tag, <code>DockerImage:</code> in the <code>DESCRIPTION</code> file.</li>
-</ol>
-<p>Both of those tasks can be accomplished using the Github actions included in this template package. The vignette accompanying this package describes how to accomplish both of these tasks.</p>
+<div class="section level3">
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h3>
+<p>Mass spectrometry–based proteomics allows the identification and quantification of a myriad of posttranslational modifications (PTMs), which reveal additional complexity and diversity of the proteome. Indeed, PTMs greatly extend the number of different forms of a protein, i.e. proteoforms, that can be found. More importantly, these PTMs can impact protein functions as they often act as key switches in many cellular pathways that play vital roles in e.g. cell proliferation, metastasis and ageing.</p>
+<p>Novel multiple open-modification search engines that were developed in the proteomics community boost the identification of post-translational modifications (PTMs) with mass spectrometry (MS) based technologies. However, despite the advances in PTM identification, statistical methods for sensitive PTM-level quantification and differential analysis are lagging behind, and many researchers continue to rely on ad-hoc analysis workflows due to a lack of clear guidelines, which can lead to violations of key statistical assumptions.</p>
+<p>In this workshop, we will offer a hands-on introduction to PTM analysis in the msqrob2 package, which provides a set of rigorously validated and benchmarked statistical workflows for MS-based proteomics. We will begin by a data exploration to highlight that (1) peptides can contain multiple PTMs so we refer to a peptide with all its modifications as peptidoforms, (2) inferring on individual PTMs requires one to summarise all peptidoforms that carry a particular PTM into one PTM expression value, and show that it remains important to evaluate and visualize all peptidoforms that contribute to a PTM to rule out reporting differential PTMs that only stem from a subset of differential peptidoforms carrying another PTM; and that (3) parent proteins on which PTMs occur can also change in abundance regardless of their PTMs. Hence, any changes in the abundance of a PTM are then confounded with changes in protein abundance.</p>
+<p>We therefore introduce the concepts Differential Peptidoform/PTM Abundance (DPA) as well as Differential Peptidoform/PTM Usage (DPU) to enable a clear distinction between directly assessing DA of peptidoforms/PTMs (DPA), and differences in the relative usage of peptidoforms/PTMs corrected for changes in overall abundance of the corresponding protein (DPU). Next, we walk the participants through the minimal data processing steps required prior to statistical modelling, explaining when and why each step is necessary. Next, we introduce all steps required to perform DPA and DPU.</p>
+<p>For the DPU analyses, we will consider two different experimental designs. We illustrate the entire workflow when the peptidoform and protein-level abundance are acquired on the same sample (paired design). Thereafter we show how the analysis differs when peptidoform and protein-level abundances are quantified in independent samples (unpaired design). Finally, we will demonstrate how to translate biological questions into hypothesis tests and how to prioritise, report and visualise peptidoforms as well as PTMs that are differentially abundant / differentially used across treatment groups or upon stimulation.</p>
 </div>
-<div class="section level2">
-<h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
-</h2>
-<p>For detailed instructions, see the <code>How to build a workshop</code> article/vignette.</p>
-</div>
-<div class="section level2">
-<h2 id="results-of-successful-deployment">Results of successful deployment<a class="anchor" aria-label="anchor" href="#results-of-successful-deployment"></a>
-</h2>
+<div class="section level3">
+<h3 id="pre-requisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#pre-requisites"></a>
+</h3>
 <ul>
-<li>A working docker image that contains the installed package and dependencies.</li>
-<li>An up-to-date <code>pkgdown</code> website at <a href="https://YOURUSERNAME.github.io/YOURREPOSITORYNAME/" class="external-link uri">https://YOURUSERNAME.github.io/YOURREPOSITORYNAME/</a>
-</li>
-<li>Docker image will be tagged with <code>latest</code>, <code>sha-XXXXXX</code> where <code>XXXXXX</code> is the hash of the current <code>master</code> commit, and <code>master</code>.</li>
+<li>Basic knowledge of R syntax</li>
+<li>Familiarity with the <code>SummarizedExperiment</code> class</li>
+<li>Familiarity with MS-based proteomics data analysis</li>
+<li>Familiarity with statistical analysis (t-tests, design of experiment)</li>
+</ul>
+<p>If you don’t have at least two out of the four prerequisites, you are still welcome to follow the workshop, but we advise to not try to run the analysis yourself during the lecture. You should rather focus on the explanations. You could also read the first chapter in our msqrob2book <a href="https://statomics.github.io/msqrob2book/" class="external-link uri">https://statomics.github.io/msqrob2book/</a></p>
+<p>Relevant background reading for the workshop:</p>
+<ul>
+<li>VDemeulemeester, N., Gébelin, M., Caldi Gomes, L., Lingor, P., Carapito, C., Martens, L., &amp; Clement, L. (2024). msqrob2PTM: Differential Abundance and Differential Usage Analysis of MS-Based Proteomics Data at the Posttranslational Modification and Peptidoform Level. Molecular &amp; Cellular Proteomics, 23(2),</li>
+</ul>
+<ol start="100708" style="list-style-type: decimal">
+<li><a href="https://doi.org/10.1016/j.mcpro.2023.100708" class="external-link uri">https://doi.org/10.1016/j.mcpro.2023.100708</a></li>
+</ol>
+<ul>
+<li><p>The <a href="https://rformassspectrometry.github.io/QFeatures/articles/QFeatures.html" class="external-link"><code>QFeatures</code> introduction vignette</a></p></li>
+<li><p>Goeminne LJE, Gevaert K, Clement L. Peptide-level Robust Ridge Regression Improves Estimation, Sensitivity, and Specificity in Data-dependent Quantitative Label-free Shotgun Proteomics. Mol Cell Proteomics. 2016;15(2):657-668. <a href="https://doi.org/10.1074/mcp.M115.055897" class="external-link">Link to paper</a>;</p></li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="to-use-the-resulting-image">To use the resulting image:<a class="anchor" aria-label="anchor" href="#to-use-the-resulting-image"></a>
-</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 YOURDOCKERIMAGENAME</span></code></pre></div>
-<p>Once running, navigate to <a href="http://localhost:8787/" class="external-link uri">http://localhost:8787/</a> and then login with <code>rstudio</code>:<code>yourchosenpassword</code>.</p>
-<p>To try with <strong>this</strong> repository docker image:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=abc <span class="at">-p</span> 8787:8787 ghcr.io/bioconductor/buildabiocworkshop</span></code></pre></div>
-<p><em>NOTE</em>: Running docker that uses the password in plain text like above exposes the password to others in a multi-user system (like a shared workstation or compute node). In practice, consider using an environment variable instead of plain text to pass along passwords and other secrets in docker command lines.</p>
+<div class="section level3">
+<h3 id="participation">Participation<a class="anchor" aria-label="anchor" href="#participation"></a>
+</h3>
+<p>This workshop is designed for proteomics researchers who want to learn how to conduct differential PTM analyses using reproducible and statistically sound workflows, as well as for omics data analysts interested in expanding their skill set to include proteomics.</p>
+<p>The workshop will introduce participants to important concepts regarding the statistical analysis of PTMs in MS-based proteomics and how the underlying modelling assumption relate to the experimental data characteristics. The concepts will be embedded in a real-life analysis, demonstrating the code to carry out each step from the input data up to the biological interpretation. Participants can follow the workshop by running along the analysis on their local computers, but you are not requested to as the code will be live demonstrated. We did not include exercise to allocate time for questions and interactivity with the audience.</p>
 </div>
-<div class="section level2">
-<h2 id="whatcha-get">Whatcha get<a class="anchor" aria-label="anchor" href="#whatcha-get"></a>
-</h2>
+<div class="section level3">
+<h3 id="r--bioconductor-packages-used">
+<em>R</em> / <em>Bioconductor</em> packages used<a class="anchor" aria-label="anchor" href="#r--bioconductor-packages-used"></a>
+</h3>
 <ul>
-<li><a href="https://bioconductor.github.io/BuildABiocWorkshop" class="external-link uri">https://bioconductor.github.io/BuildABiocWorkshop</a></li>
-<li>A Docker image that you can run locally, in the cloud, or (usually) even as a singularity container on HPC systems.</li>
+<li>msqrob2<br>
+</li>
+<li>QFeatures<br>
+</li>
+<li>dplyr</li>
+<li>tidyr</li>
+<li>ggplot2</li>
+<li>stringr</li>
+<li>ExploreModelMatrix</li>
+<li>kableExtra</li>
+<li>ComplexHeatmap</li>
+<li>scater</li>
+<li>patchwork</li>
+<li>seqinr</li>
+<li>data.table</li>
+<li>BiocFileCache</li>
+<li>purrr</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="time-outline">Time outline<a class="anchor" aria-label="anchor" href="#time-outline"></a>
+</h3>
+<table class="table">
+<thead><tr>
+<th>Activity</th>
+<th>Time</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Introduction and setup</td>
+<td>10m</td>
+</tr>
+<tr>
+<td>The <code>QFeatures</code> data class</td>
+<td>5m</td>
+</tr>
+<tr>
+<td>Data preprocessing</td>
+<td>15m</td>
+</tr>
+<tr>
+<td>Break</td>
+<td>15m</td>
+</tr>
+<tr>
+<td>Modelling sources of variation</td>
+<td>10m</td>
+</tr>
+<tr>
+<td>Hypothesis testing</td>
+<td>10m</td>
+</tr>
+<tr>
+<td>Wrap up</td>
+<td>5m</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="learning-goals">Learning goals<a class="anchor" aria-label="anchor" href="#learning-goals"></a>
+</h3>
+<ul>
+<li>Get an overview of the main challenges and artefacts in proteomics data analysis, and how a well-justified data processing workflow can overcome these issues.</li>
+<li>Get a feeling on how the experimental design influences the main sources of variability, and hence the modelling strategy.</li>
+<li>Understand why peptidoform differential abundance analysis, peptidoform usage analysis, PTM-level DA and PTM-level usage are important in the context of PTM data analysis.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="learning-objectives">Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a>
+</h3>
+<ul>
+<li>Use <code>QFeatures</code> to manipulate and visualize proteomics data</li>
+<li>Use <code>msqrob2</code> to answer biological questions from processed data</li>
+<li>Learn how to translate these biological questions into model-related parameter combinations.</li>
 </ul>
 </div>
 </div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr>
+<ol>
+<li id="fn1"><p>UGent<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>UGent<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>UGent<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>UGent<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -164,7 +251,8 @@
 <ul class="list-unstyled">
 <li>Lieven Clement <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9050-4370" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Nina Demeulemeester <br><small class="roles"> Author </small>   </li>
-<li><a href="authors.html">More about authors...</a></li>
+<li>Luca De Corso <br><small class="roles"> Author </small>   </li>
+<li>Lucas Beerland <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -176,7 +264,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Lieven Clement, Nina Demeulemeester.</p>
+<p>Developed by Lieven Clement, Nina Demeulemeester, Luca De Corso, Lucas Beerland.</p>
 </div>
 
 <div class="pkgdown">
