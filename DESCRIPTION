@@ -33,6 +33,7 @@ Depends:
 Suggests: 
     BiocFileCache,
     BiocParallel,
+    quarto,
     ggplot2,
     patchwork,
     ggrepel,
@@ -52,5 +53,10 @@ Suggests:
     purrr
 URL: https://statomics.github.io/testws
 BugReports: https://github.com/statOmics/testws/issues/new/choose
-VignetteBuilder: knitr
+BiocType: Workflow
+VignetteBuilder: quarto, knitr
+VignetteBuilder: quarto, knitr
+SystemRequirements:
+    pandoc,
+    quarto
 DockerImage: ghcr.io/statOmics/testws:latest
