@@ -1,15 +1,24 @@
 ---
 title: "msqrob2PTM: msqrob2 Mass Spectrometry Data Analysis Workflow for differential PTM analysis"
-format: html
-author: "Lieven Clement, Nina Demeulemeester, Luca De Corso and Lucas Beerland"
+author:
+    - name: Lieven Clement, Nina Demeulemeester, Luca De Corso and Lucas Beerland
+output: 
+    rmarkdown::html_vignette:
+      toc: true
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('msqrob2')`"
 vignette: >
-  %\VignetteIndexEntry{SpectriPy: Criss-Crossing R and Python for Powerful Mass Spectrometry Data Analysis Workflows}
-  %\VignetteKeywords{Mass Spectrometry, MS, MSMS, Quantitative}
-  %\VignettePackage{msqrob2}
-  %\VignetteEngine{quarto::html}
-  %\VignetteDepends{msqrob2, QFeatures, dplyr, tidyr, stringr, ExplorModelMatrix, kableExtra, ComplexHeatmap, scater, patchwork, seqinr, data.table,
-  BiocStyle, BiocFileCache, purrr}
+    %\VignetteIndexEntry{msqrob2PTM use case}
+    %\VignetteEngine{knit r::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE
+)
+```
 
 # Outline
 
@@ -727,4 +736,3 @@ volcanoplot <- plotVolcano(inferencesIonUsage) +
   labs(title = "Ion Usage")
 volcanoplot
 ```
-

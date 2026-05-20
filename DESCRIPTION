@@ -54,7 +54,7 @@ Suggests:
 URL: https://statomics.github.io/testws
 BugReports: https://github.com/statOmics/testws/issues/new/choose
 BiocType: Workflow
-VignetteBuilder: quarto, knitr
+VignetteBuilder: knitr
 SystemRequirements:
     pandoc,
     quarto
