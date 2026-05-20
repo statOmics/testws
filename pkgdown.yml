@@ -1,0 +1,10 @@
+pandoc: 3.9.0.2
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  HOWTO_BUILD_WORKSHOP: HOWTO_BUILD_WORKSHOP.html
+  workshop_example: workshop_example.html
+last_built: 2026-05-20T10:40Z
+urls:
+  reference: https://statomics.github.io/testws/reference
+  article: https://statomics.github.io/testws/articles
