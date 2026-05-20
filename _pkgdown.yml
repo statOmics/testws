@@ -1,0 +1,18 @@
+url: https://statomics.github.io/testws
+
+template:
+  params:
+    bootswatch: flatly
+    #ganalytics: UA-99999999-9
+
+home:
+  title: "testws"
+  type: inverse
+
+
+navbar:
+  right:
+   - icon: fa-github
+     href: https://statomics.github.io/testws
+     
+
