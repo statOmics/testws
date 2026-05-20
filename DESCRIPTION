@@ -1,26 +1,55 @@
 Package: testws
-Title: Bioconductor or R Workshop Template and Github Actions
+Title: "msqrob2 workshop: Differential PTM abundance and usage for mass spectrometry-based proteomics"
 Version: 1.0.0
 Authors@R: 
+    c(
     person(given = "Lieven",
            family = "Clement",
            role = c("aut", "cre"),
-           email = "lieven.clement@gmail.com")
-Description: This package serves as a template for using github actions to 
-    prepare a Bioconductor Workshop package for use. In particular,
-    a pkgdown website and docker image are generated based on workflow 
-    settings. 
+           email = "lieven.clement@gmail.com",
+           comment = c(ORCID = "0000-0002-9050-4370")),
+    person(given = "Nina",
+           family = "Demeulemeester",
+           role = c("aut")),
+    person(given = "Luca",
+           family = "De Corso",
+           role = c("ctb")),
+    person(given = "Lucas",
+           family = "Beerland",
+           role = c("ctb"))
+           )
+Description: This package contains the workshop material presented 
+    during the EuroBioc2026 conference. The workshop demonstrate how 
+    to apply an msqrob2 workflow for differential PTM analysis from mass 
+    spectrometry-based proteomics data. 
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Depends: 
-    Biobase
+    Biobase, 
+    msqrob2
 Suggests: 
+    BiocFileCache,
+    BiocParallel,
+    ggplot2,
+    patchwork,
+    ggrepel,
+    ExploreModelMatrix,
+    scater,
+    dplyr,
+    tidyr,
+    stringr,
+    data.table,
+    kableExtra,
+    ComplexHeatmap,
+    seqinr,
     knitr,
     rmarkdown,
-    pkgdown
+    pkgdown,
+    BiocStyle,
+    purrr
 URL: https://statomics.github.io/testws
 BugReports: https://github.com/statOmics/testws/issues/new/choose
 VignetteBuilder: knitr
