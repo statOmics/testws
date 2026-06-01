@@ -9,7 +9,6 @@ output:
       number_sections: true
       code_download: true
 
-  
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('msqrob2')`"
 vignette: >
@@ -273,7 +272,6 @@ We can import the report.parquet file using the `read_parquet` function from the
 `arrow` package. 
 
 ```{r data_import}
-precursors <- arrow::read_parquet(precursorFile) # function from the arrow package
 precursorsPTM <- arrow::read_parquet(precursorFilePTM) # function from the arrow package
 #precursors <- data.table::fread(precursorFile) # For older versions the results are stored as tsv files. 
 ```
@@ -287,32 +285,6 @@ protein sequence, which will be useful when assessing PTM-level quantification.
 Note, that we also filter out the strain with the ProSer variant here. 
 
 ```{r data_subset}
-precursors <- precursors |> 
-  filter(!grepl("ProSer",Run)) |>
-  select(
-         Run, 
-         Precursor.Id, 
-         Modified.Sequence, 
-         Stripped.Sequence, 
-         Precursor.Charge, 
-         Protein.Group, 
-         Protein.Names,
-         Protein.Ids,
-         Protein.Sites, #exact modified residue position in the full protein sequence
-         Genes,
-         Precursor.Quantity,
-         Precursor.Normalised,
-         Normalisation.Factor,
-         Ms1.Area,
-         Ms1.Normalised,
-         PG.MaxLFQ,
-         Q.Value, 
-         Lib.Q.Value,
-         PG.Q.Value,
-         Lib.PG.Q.Value,
-         Proteotypic,
-         Decoy, # Not available in older versions of DIA-NN
-         RT)
 precursorsPTM <- precursorsPTM |> 
   filter(!grepl("ProSer",Run)) |>
   select(
@@ -371,7 +343,7 @@ gc(); gc()
 Quick check on distribution of precursors MS2 intensities.
 
 ```{r quick check}
-precursors |> 
+precursorsPTM |> 
   filter(is.finite(Precursor.Quantity) & Precursor.Quantity > 0) |>
   ggplot(aes(x = log2(Precursor.Quantity))) +
   geom_density() +
@@ -404,20 +376,6 @@ and can be generated from the run labels, as the researchers included informatio
 4. Add sampleId
 5. Sort annotation file according to sampleId
 
-```{r metadata_non_enriched}
-annot <- precursors |> 
-  dplyr::distinct(Run) |>  ## 1.
-  separate(Run,
-           into=c("run","label2","strain","rep","type","acquisition"),
-           sep="_",
-           remove=FALSE) |>   ## 2.
-  rename(runCol = Run) |> ## 3.
-  mutate(sampleId = paste0(strain,rep)) |> #4.
-  arrange(sampleId) #5.
-annot
-```
-
-We do the same for the phospho data.
 
 ```{r meta_data_phospho}
 annotPTM <- precursorsPTM |> 
