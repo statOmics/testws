@@ -3,8 +3,6 @@ url: https://statOmics.github.io/testws
 template:
   bootstrap: 5
   bootswatch: flatly
-  includes:
-    css: pkgdown/section.css
 
 home:
   title: "testws"
@@ -14,3 +12,7 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/statOmics/testws
+
+pandoc:
+  args:
+    - "--number-sections"
