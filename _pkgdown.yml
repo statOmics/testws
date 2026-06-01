@@ -1,14 +1,16 @@
-url: https://statOmics.github.io/2026_eurobioc_workshop_msqrob2ptm
+url: https://statOmics.github.io/testws
 
 template:
   bootstrap: 5
   bootswatch: flatly
+  includes:
+    css: pkgdown/extra.css
 
 home:
-  title: "2026_eurobioc_workshop_msqrob2ptm"
+  title: "testws"
   type: inverse
 
 navbar:
   right:
     - icon: fa-github
-      href: https://github.com/statOmics/2026_eurobioc_workshop_msqrob2ptm
+      href: https://github.com/statOmics/testws

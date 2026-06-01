@@ -1,0 +1,28 @@
+/* ===========================
+   Section numbering for pkgdown
+   =========================== */
+
+body {
+  counter-reset: h2;
+}
+
+/* Level 2 headings */
+.article h2 {
+  counter-increment: h2;
+  counter-reset: h3;
+}
+
+.article h2::before {
+  content: counter(h2) ". ";
+  font-weight: 600;
+}
+
+/* Level 3 headings */
+.article h3 {
+  counter-increment: h3;
+}
+
+.article h3::before {
+  content: counter(h2) "." counter(h3) " ";
+  font-weight: 600;
+}
