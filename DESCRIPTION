@@ -50,7 +50,12 @@ Suggests:
     rmarkdown,
     pkgdown,
     BiocStyle,
-    purrr
+    purrr, 
+    arrow,
+    matrixStats,
+    tibble,
+    ggh4x,
+    iq
 URL: https://statomics.github.io/testws
 BugReports: https://github.com/statOmics/testws/issues/new/choose
 BiocType: Workflow
