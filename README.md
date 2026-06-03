@@ -156,3 +156,5 @@ data analysis.
 * Learn how to translate these biological questions into model-related
   parameter combinations.
   
+![fig1](./vignettes/noppe1.png)
+  
