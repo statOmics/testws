@@ -155,56 +155,9 @@ audience.
 ### Learning objectives
 
 - Use `QFeatures` to manipulate and visualize proteomics data
-
 - Use `msqrob2` to answer biological questions from processed data
-
 - Learn how to translate these biological questions into model-related
   parameter combinations.
-
-- Open Noppe at <https://noppe.2.rahtiapp.fi/>
-
-![noppe1](./articles/figs/noppe1.png)
-
-noppe1
-
-- Login using special login using the given user [name and
-  password](https://docs.google.com/spreadsheets/d/1sZNG_GyvmgcVhkXWmJbLpQV6lm0tqaQV/edit?gid=1839105855#gid=1839105855)
-
-![noppe2](./articles/figs/noppe2.png)
-
-noppe2
-
-- Click on the top right corner to join workspace using the join code
-  60w4ajhuvynf
-
-![noppe3](./articles/figs/noppe3.png)
-
-noppe3
-
-- Accept and choose the applications you would like to work on click on
-  start the session
-
-![noppe4](./articles/figs/noppe4.png)
-
-noppe4
-
-- Wait the application session to start
-
-![noppe5](./articles/figs/noppe5.png)
-
-noppe5
-
-- Container is running
-
-![noppe6](./articles/figs/noppe6.png)
-
-noppe6
-
-- R-studio should appear if you click on the application
-
-![noppe7](./articles/figs/noppe7.png)
-
-noppe7
 
 [^1]: UGent
 
