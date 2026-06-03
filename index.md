@@ -159,6 +159,10 @@ audience.
 - Learn how to translate these biological questions into model-related
   parameter combinations.
 
+![fig1](./articles/noppe1.png)
+
+fig1
+
 [^1]: UGent
 
 [^2]: UGent
