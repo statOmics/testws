@@ -159,29 +159,29 @@ data analysis.
   
 - Open Noppe at https://noppe.2.rahtiapp.fi/
 
-![noppe1](./vignettes/figs/noppe1.png)
+![noppe1](./man/figures/noppe1.png)
 
 - Login using special login using the given user [name and password](https://docs.google.com/spreadsheets/d/1sZNG_GyvmgcVhkXWmJbLpQV6lm0tqaQV/edit?gid=1839105855#gid=1839105855)
 
-![noppe2](./vignettes/figs/noppe2.png)
+![noppe2](./man/figures/noppe2.png)
 
 - Click on the top right corner to join workspace using the join code 60w4ajhuvynf 
 
-![noppe3](./vignettes/figs/noppe3.png)
+![noppe3](./man/figures/noppe3.png)
 
 - Accept and choose the applications you would like to work on click on start the session
 
-![noppe4](./vignettes/figs/noppe4.png)
+![noppe4](./man/figures/noppe4.png)
 
 - Wait the application session to start 
 
-![noppe5](./vignettes/figs/noppe5.png)
+![noppe5](./man/figures/noppe5.png)
 
 
 - Container is running
 
-![noppe6](./vignettes/figs/noppe6.png)
+![noppe6](./man/figures/noppe6.png)
 
 - R-studio should appear if you click on the application
 
-![noppe7](./vignettes/figs/noppe7.png)
+![noppe7](./man/figures/noppe7.png)
